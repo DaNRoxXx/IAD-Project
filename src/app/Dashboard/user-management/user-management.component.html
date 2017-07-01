@@ -1,0 +1,45 @@
+<div class="container">
+  <h3 (click)="dashboard()">Dashboard<br />
+    <small>The City School</small>
+  </h3>
+  <br />
+
+  <div class="row">
+    <div class="col-sm-2">
+      <nav class="nav-sidebar">
+        <ul class="nav">
+          <li class="active"><a href="javascript:;">User Management</a></li>
+          <li><a routerLink="/campus">Campus Management</a></li>
+          <li><a href="javascript:;" (click)="class()">Classes Management</a></li>
+          <li><a href="javascript:;" (click)="course()">Courses Management</a></li>
+          <li><a href="javascript:;" (click)="exam()">Exams Management</a></li>
+          <li><a href="javascript:;" (click)="fees()">Fees Management</a></li>
+          <li><a href="javascript:;" (click)="announce()">Announcements</a></li>
+          <li><a href="javascript:;" (click)="alumini()">Alumini Management</a></li>
+          <li><a href="javascript:;" (click)="account()">Account Management</a></li>
+          <li><a href="javascript:;" (click)="report()">Reporting</a></li>
+          <li class="nav-divider"></li>
+          <li><a href="javascript:;" (click)="logOut()" ><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
+        </ul>
+      </nav>
+    </div>
+    <h2>Add Users</h2>
+    <form>
+      First Name: 
+      <input type="text" name="cName" placeholder="First Name" #fName/>
+      <br/><br/>
+      Last Name: 
+      <input type="text" name="cAddress" placeholder="Last Name" #lName/>
+      <br/><br/>
+      Gender: 
+      <input type="text" name="gender" placeholder="Sex" #gender/>
+      <br/><br/>
+      Date of birth: 
+      <input type="text" name="dob" placeholder="Date of birth" #dob/>
+      <br/><br/>
+      <button type="submit" id="submitButton" name="addUser" (click)="addUser(fName, lName, gender, dob)" >Add User</button>
+      <br/>
+      <span id="response">{{ response }}</span>
+    </form>
+  </div>
+</div>
