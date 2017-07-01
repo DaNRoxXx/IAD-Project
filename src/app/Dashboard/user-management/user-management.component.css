@@ -83,8 +83,13 @@ h2 {
 .stylish{
   border: 1px groove red;
   font-size: 30px;
+  padding: 10px;
 }
-
+.stylish2{
+  border: 1px groove greenyellow;
+  font-size: 30px;
+  padding: 10px;
+}
 #submitButton {
   margin-bottom: 20px;
   width: 180px;

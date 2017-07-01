@@ -26,18 +26,15 @@ export class UserManagementComponent implements OnInit {
         new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
           console.log(res);
           if (res.status === 201) {
-            self.response = "User Added";
+            document.getElementById('response').className = "stylish2";
+            self.response = "User successfully added.";
           }
         })
-        document.getElementById('response').className = "response";
-        self.response = "";
     }
-
-    //this.response = "Invalid Username or Password.";
-    //fName.value = "";
-    /*lName.value = "";
+    fName.value = "";
+    lName.value = "";
     gender.value = "";
-    dob.value = "";*/
+    dob.value = "";
     //alert("Successfully Added!");
     //this.router.navigate([""]);
   }
