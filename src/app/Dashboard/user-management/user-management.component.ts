@@ -19,6 +19,7 @@ export class UserManagementComponent implements OnInit {
     
     if(fName.value == "" && lName.value == "" && gender.value == "" && dob.value == ""){
       self.response = "All fields are required.";
+      document.getElementById('response').className = "stylish";
     }
     else {
       this.http.post("http://localhost:3000/users", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
@@ -28,6 +29,8 @@ export class UserManagementComponent implements OnInit {
             self.response = "User Added";
           }
         })
+        document.getElementById('response').className = "response";
+        self.response = "";
     }
 
     //this.response = "Invalid Username or Password.";

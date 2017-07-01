@@ -1,3 +1,7 @@
+*{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .nav-sidebar {
   width: 100%;
   padding: 8px 0;
@@ -47,17 +51,45 @@
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
 }
+form{
+  margin: 20px;
+}
+
+h2{
+  font-size: 60px;
+}
+input{
+  margin-left: 20px;
+  position: absolute;
+}
+#gender{
+  margin-left: 40px;
+}
+#dob{
+  right: 956px;
+}
 
 h2 {
   color: cornflowerblue;
   text-align: center;
 }
 
-#response {
-  border: 1px groove red;
+.col-sm-2{
+  margin-left: 20px;
+}
+.response {
   padding: 10px;
+}
+.stylish{
+  border: 1px groove red;
+  font-size: 30px;
 }
 
 #submitButton {
   margin-bottom: 20px;
+  width: 180px;
+}
+
+h3{
+  margin-left: 30px;
 }
