@@ -12,12 +12,15 @@ export class UserManagementComponent implements OnInit {
 
   constructor(private router: Router, private sigin: SigninService, private http: Http) { }
 
-  public response: string;
+  response: String;
+  //body: any;
+  getData: any[];
+  bodyLength: Number;
 
   addUser(fName: HTMLInputElement, lName: HTMLInputElement, gender: HTMLInputElement, dob: HTMLInputElement): void {
     let self = this;
-    
-    if(fName.value == "" && lName.value == "" && gender.value == "" && dob.value == ""){
+
+    if (fName.value == "" && lName.value == "" && gender.value == "" && dob.value == "") {
       self.response = "All fields are required.";
       document.getElementById('response').className = "stylish";
     }
@@ -37,6 +40,18 @@ export class UserManagementComponent implements OnInit {
     dob.value = "";
     //alert("Successfully Added!");
     //this.router.navigate([""]);
+  }
+
+  showUsers() {
+    let self = this;
+    this.http.get("http://localhost:3000/users/get", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.bodyLength = Object.keys(res.json()).length;
+        console.log(self.bodyLength);
+        self.getData = res.json();
+        //console.log(res.json()[0].firstName);
+        //self.body = res.text();
+      })
   }
 
   logOut() {

@@ -1,4 +1,4 @@
-*{
+* {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -51,50 +51,56 @@
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
 }
-form{
+
+form {
   margin: 20px;
 }
 
-h2{
+h2 {
   font-size: 60px;
 }
-input{
-  margin-left: 20px;
-  position: absolute;
+
+label {
+  /*display: inline-block;
+  text-align: left;*/
+  width: 100px;  
 }
-#gender{
-  margin-left: 40px;
-}
-#dob{
-  right: 956px;
-}
+
+/*input {
+  display: inline-block;
+}*/
 
 h2 {
   color: cornflowerblue;
   text-align: center;
 }
 
-.col-sm-2{
+.col-sm-2 {
   margin-left: 20px;
 }
+
 .response {
   padding: 10px;
 }
-.stylish{
+
+.stylish {
   border: 1px groove red;
   font-size: 30px;
   padding: 10px;
 }
-.stylish2{
+
+.stylish2 {
   border: 1px groove greenyellow;
   font-size: 30px;
   padding: 10px;
 }
+
 #submitButton {
+  margin-left: 75px;
   margin-bottom: 20px;
   width: 180px;
 }
 
-h3{
+h3 {
   margin-left: 30px;
 }
