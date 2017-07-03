@@ -22,15 +22,16 @@ export class UserManagementComponent implements OnInit {
 
     if (fName.value == "" && lName.value == "" && gender.value == "" && dob.value == "") {
       self.response = "All fields are required.";
-      document.getElementById('response').className = "stylish";
+      document.getElementById('response').className = "alert alert-danger";
     }
     else {
       this.http.post("http://localhost:3000/users", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
         new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
-          console.log(res);
+          //console.log(res);
           if (res.status === 201) {
-            document.getElementById('response').className = "stylish2";
+            document.getElementById('response').className = "alert alert-success";
             self.response = "User successfully added.";
+            self.showUsers();
           }
         })
     }
@@ -44,13 +45,13 @@ export class UserManagementComponent implements OnInit {
 
   showUsers() {
     let self = this;
-    this.http.get("http://localhost:3000/users/get", new Headers({ 'Content-type': 'application/json' }))
+    this.http.get("http://localhost:3000/users/getall", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
-        self.bodyLength = Object.keys(res.json()).length;
-        console.log(self.bodyLength);
-        self.getData = res.json();
-        //console.log(res.json()[0].firstName);
+        //self.bodyLength = Object.keys(res.json()).length;
+        //console.log(self.bodyLength);
+        //console.log(res.json()[0].id);
         //self.body = res.text();
+        self.getData = res.json();
       })
   }
 
@@ -104,6 +105,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showUsers();
   }
 
 }

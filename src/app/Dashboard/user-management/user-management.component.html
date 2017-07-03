@@ -23,38 +23,48 @@
         </ul>
       </nav>
     </div>
-    <h2>Add Users</h2>
-    <form class="form">
-      <label>First Name: </label>
-      <input type="text" name="cName" placeholder="First Name" #fName/>
-      <br/><br/><br/>
-      <label>Last Name: </label>
-      <input type="text" name="cAddress" placeholder="Last Name" #lName/>
-      <br/><br/><br/>
-      <label>Gender: </label>
-      <input type="text" id="gender" name="gender" placeholder="Sex" #gender/>
-      <br/><br/><br/>
-      <label>Date of birth: </label>
-      <input type="text" id="dob" name="dob" placeholder="Date of birth" #dob/>
-      <br/><br/><br/>
-      <button type="submit" id="submitButton" name="addUser" (click)="addUser(fName, lName, gender, dob)">Add User</button>
-      <br/>
-      <span class="response" id="response">{{ response }}</span>
-    </form>
-    <button type="submit" id="submitButton" name="addUser" (click)="showUsers()">Show Users</button>
-    <table>
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Gender</th>
-        <th>Date of birth</th>
-      </tr>
-      <tr *ngFor="let data of getData">
-        <td>{{data.firstName}}</td>
-        <td>{{data.lastName}}</td>
-        <td>{{data.gender}}</td>
-        <td>{{data.dob}}</td>
-      </tr>
-    </table>
+    <div class="col-sm-4">
+      <h2>Add Users</h2>
+      <form class="form">
+        <label>First Name: </label>
+        <input type="text" name="cName" placeholder="First Name" #fName/>
+        <br/><br/><br/>
+        <label>Last Name: </label>
+        <input type="text" name="cAddress" placeholder="Last Name" #lName/>
+        <br/><br/><br/>
+        <label>Gender: </label>
+        <input type="text" id="gender" name="gender" placeholder="Sex" #gender/>
+        <br/><br/><br/>
+        <label>Date of birth: </label>
+        <input type="text" id="dob" name="dob" placeholder="Date of birth" #dob/>
+        <br/><br/>
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary" name="addUser" (click)="addUser(fName, lName, gender, dob)">Add User</button>
+        </div>
+        <br/>
+        <div id="response">{{ response }}</div>
+      </form>
+    </div>
+    <div class="col-sm-5">
+      <h2>All User</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Date of birth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of getData">
+            <td>{{data.firstName}}</td>
+            <td>{{data.lastName}}</td>
+            <td>{{data.gender}}</td>
+            <td>{{data.dob}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

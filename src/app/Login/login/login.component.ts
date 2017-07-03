@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
        this.router.navigate(["dashboard"]);
      }
      else {
+       document.getElementById('response').className = "alert alert-danger";
        this.response = "Invalid Username or Password.";
      }
     //this.http.get("http://localhost:3000/signup/login", new Headers({ 'Content-type': 'application/json' })).map(response => response.json());

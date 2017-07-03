@@ -11,7 +11,7 @@
           <input type="password" class="form-control input-lg" id="password" placeholder="Password" required="" #userPassword />
 
           <div class="pwstrength_viewport_progress"></div>
-          <div class="alert alert-danger" role="alert">{{ response }}</div>
+          <div id="response">{{ response }}</div>
 
           <button type="submit" name="go" class="btn btn-lg btn-primary btn-block" (click)="sign(email, userPassword)">Sign in</button>
           <div>
