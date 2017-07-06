@@ -16,6 +16,7 @@ export class UserManagementComponent implements OnInit {
   //body: any;
   getData: any[];
   bodyLength: Number;
+  editRow: any;
 
   addUser(fName: HTMLInputElement, lName: HTMLInputElement, gender: HTMLInputElement, dob: HTMLInputElement): void {
     let self = this;
@@ -53,6 +54,20 @@ export class UserManagementComponent implements OnInit {
         //self.body = res.text();
         self.getData = res.json();
       })
+  }
+
+  editUser(data: any) {
+    let self = this;
+    self.editRow = 0;
+    //console.log(data.firstName);
+    this.http.put("http://localhost:3000/users/edit", { id: data.id, firstName: data.firstName, lastName: data.lastName, gender: data.gender, dob: data.dob },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        console.log("Updated!");
+      })
+  }
+
+  toggle(val) {
+    this.editRow = val;
   }
 
   logOut() {
@@ -106,6 +121,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.showUsers();
+    //this.editUser();
   }
 
 }

@@ -59,8 +59,9 @@ form {
 label {
   /*display: inline-block;
   text-align: left;*/
-  width: 100px;  
+  width: 100px;
 }
+
 
 /*input {
   display: inline-block;
@@ -96,3 +97,16 @@ h3 {
   text-align: center;
 }
 
+.update {
+  width: 80px;
+}
+
+table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+table th,
+table td {
+  overflow: hidden;
+}
