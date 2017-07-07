@@ -23,20 +23,29 @@
         </ul>
       </nav>
     </div>
+
     <div class="col-sm-4">
       <h2>Add Users</h2>
       <form class="form">
         <label>First Name: </label>
         <input type="text" name="cName" placeholder="First Name" #fName/>
-        <br/><br/><br/>
+        <br/><br/>
         <label>Last Name: </label>
         <input type="text" name="cAddress" placeholder="Last Name" #lName/>
-        <br/><br/><br/>
+        <br/><br/>
         <label>Gender: </label>
         <input type="text" id="gender" name="gender" placeholder="Sex" #gender/>
-        <br/><br/><br/>
+        <br/><br/>
         <label>Date of birth: </label>
         <input type="text" id="dob" name="dob" placeholder="Date of birth" #dob/>
+        <br/><br/>
+        <label>Role: </label>
+        <select id="roles">
+          <option disabled hidden>-- select --</option>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+          <option value="staff">Staff</option>
+        </select>
         <br/><br/>
         <div class="text-center">
           <button type="submit" class="btn btn-lg btn-primary" name="addUser" (click)="addUser(fName, lName, gender, dob)">Add User</button>
@@ -45,38 +54,41 @@
         <div id="response">{{ response }}</div>
       </form>
     </div>
+
     <div class="col-sm-5">
       <h2>All User</h2>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Date of birth</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of getData">
-            <td *ngIf="data.id !== editRow" id="test" (click)="toggle(data.id)">{{data.firstName}}</td>
-            <td *ngIf="data.id === editRow">
-              <input class="update" (keyup.enter)="editUser(data)" id="test" type="text" [(ngModel)]="data.firstName" />
-            </td>
-            <td *ngIf="data.id !== editRow"  (click)="toggle(data.id)">{{data.lastName}}</td>
-            <td *ngIf="data.id === editRow">
-              <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.lastName" />
-            </td>
-            <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.gender}}</td>
-            <td *ngIf="data.id === editRow">
-              <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.gender" />
-            </td>
-            <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.dob}}</td>
-            <td *ngIf="data.id === editRow">
-              <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.dob" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Date of birth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of getData">
+              <td *ngIf="data.id !== editRow" id="test" (click)="toggle(data.id)">{{data.firstName}}</td>
+              <td *ngIf="data.id === editRow">
+                <input class="update" (keyup.enter)="editUser(data)" id="test" type="text" [(ngModel)]="data.firstName" />
+              </td>
+              <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.lastName}}</td>
+              <td *ngIf="data.id === editRow">
+                <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.lastName" />
+              </td>
+              <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.gender}}</td>
+              <td *ngIf="data.id === editRow">
+                <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.gender" />
+              </td>
+              <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.dob}}</td>
+              <td *ngIf="data.id === editRow">
+                <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.dob" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

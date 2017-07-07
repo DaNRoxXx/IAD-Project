@@ -13,33 +13,71 @@ export class UserManagementComponent implements OnInit {
   constructor(private router: Router, private sigin: SigninService, private http: Http) { }
 
   response: String;
-  //body: any;
   getData: any[];
   bodyLength: Number;
   editRow: any;
 
   addUser(fName: HTMLInputElement, lName: HTMLInputElement, gender: HTMLInputElement, dob: HTMLInputElement): void {
     let self = this;
+    let DropdownList = (document.getElementById("roles")) as HTMLSelectElement;
+    let SelectedIndex = DropdownList.selectedIndex;
+
+    console.log(SelectedIndex);
 
     if (fName.value == "" && lName.value == "" && gender.value == "" && dob.value == "") {
       self.response = "All fields are required.";
       document.getElementById('response').className = "alert alert-danger";
     }
     else {
-      this.http.post("http://localhost:3000/users", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
-        new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
-          //console.log(res);
-          if (res.status === 201) {
-            document.getElementById('response').className = "alert alert-success";
-            self.response = "User successfully added.";
-            self.showUsers();
-          }
-        })
+      switch (SelectedIndex) {
+        case 0:
+          document.getElementById('response').className = "alert alert-warning";
+          self.response = "Please select a role.";
+          break;
+        case 1:
+          this.http.post("http://localhost:3000/teachers", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
+            new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+              if (res.status === 201) {
+                document.getElementById('response').className = "alert alert-success";
+                self.response = "Teacher successfully added.";
+                self.showUsers();
+              }
+            })
+          break;
+        case 2:
+          this.http.post("http://localhost:3000/students", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
+            new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+              if (res.status === 201) {
+                document.getElementById('response').className = "alert alert-success";
+                self.response = "Student successfully added.";
+                self.showUsers();
+              }
+            })
+          break;
+        case 3:
+          this.http.post("http://localhost:3000/staffs", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
+            new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+              if (res.status === 201) {
+                document.getElementById('response').className = "alert alert-success";
+                self.response = "Staff successfully added.";
+                self.showUsers();
+              }
+            })
+          break;
+        default:
+          document.getElementById('response').className = "alert alert-danger";
+          self.response = "ERROR!";
+          break;
+      }
+      self.showUsers();
     }
-    fName.value = "";
-    lName.value = "";
-    gender.value = "";
-    dob.value = "";
+    if (SelectedIndex != 0) {
+      fName.value = "";
+      lName.value = "";
+      gender.value = "";
+      dob.value = "";
+      DropdownList.selectedIndex = 0;
+    }
     //alert("Successfully Added!");
     //this.router.navigate([""]);
   }
@@ -59,10 +97,8 @@ export class UserManagementComponent implements OnInit {
   editUser(data: any) {
     let self = this;
     self.editRow = 0;
-    //console.log(data.firstName);
     this.http.put("http://localhost:3000/users/edit", { id: data.id, firstName: data.firstName, lastName: data.lastName, gender: data.gender, dob: data.dob },
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
-        console.log("Updated!");
       })
   }
 
@@ -121,7 +157,6 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.showUsers();
-    //this.editUser();
   }
 
 }

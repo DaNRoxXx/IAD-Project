@@ -76,19 +76,6 @@ h2 {
   margin-left: 20px;
 }
 
-.error {
-  border: 1px groove red;
-  border-radius: 10px;
-  font-size: 30px;
-  padding: 10px;
-}
-
-.success {
-  border: 1px groove greenyellow;
-  font-size: 30px;
-  padding: 10px;
-}
-
 h3 {
   margin-left: 30px;
 }
@@ -109,4 +96,10 @@ table {
 table th,
 table td {
   overflow: hidden;
+}
+
+#tableWrapper {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 450px;
 }
