@@ -15,6 +15,7 @@ export class CampusManagementComponent implements OnInit {
   getCampuses: any[];
   getTeachers: any[];
   getTeachersCampus: any[];
+  getStaff: any[];
   editRow: any;
 
   constructor(private router: Router, private http: Http) { }
@@ -49,32 +50,34 @@ export class CampusManagementComponent implements OnInit {
         self.getTeachers = res.json();
         //console.log(self.getTeachers[0].Campuses);
       })
-
-    /*this.http.get("http://localhost:3000/teachers/getcampus", new Headers({ 'Content-type': 'application/json' }))
-      .toPromise().then(function (res) {
-        self.getTeachersCampus = res.json();
-        //console.log(self.getTeachersCampus[0].Campuses[0].name);
-
-        for (var key in self.getTeachersCampus) {
-          self.test[key] = "";
-          for (var key2 in self.getTeachersCampus[key].Campuses) {
-            //console.log(self.getTeachersCampus[key].Campuses[key2].name);
-            self.test[key] += self.getTeachersCampus[key].Campuses[key2].name + ", ";
-            
-          }
-          console.log(self.test[key]);
-        }
-        
-      })*/
   }
 
-  assignCampus(Teacher: any, Campus: any) {
+  showStaff() {
     let self = this;
-    console.log(Teacher);
-    console.log(Campus);
+    this.http.get("http://localhost:3000/staffs/get", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getStaff = res.json();
+        //console.log(self.getTeachers[0].Campuses);
+      })
+  }
+
+  assignCampusTeacher(Teacher: any, Campus: any) {
+    let self = this;
+    //console.log(Teacher);
+    //console.log(Campus);
     this.http.post("http://localhost:3000/teachers/assign", { TeacherId: Teacher, CampusId: Campus },
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         self.showTeachers();
+      })
+  }
+
+  assignCampusStaff(Staff: any, Campus: any) {
+    let self = this;
+    //console.log(Staff);
+    //console.log(Campus);
+    this.http.post("http://localhost:3000/staffs/assign", { StaffId: Staff, CampusId: Campus },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        self.showStaff();
       })
   }
 
@@ -142,6 +145,7 @@ export class CampusManagementComponent implements OnInit {
   ngOnInit() {
     this.showCampuses();
     this.showTeachers();
+    this.showStaff();
   }
 
 }

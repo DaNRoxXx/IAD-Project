@@ -77,11 +77,11 @@
           </select>
         <br/><br/>
         <label>Select Campus: </label>
-        <select [(ngModel)]="campusId" id="campus">
+        <select [(ngModel)]="campusId1" id="campus">
             <option *ngFor="let Campus of getCampuses" [value]="Campus.id">{{Campus.name}}</option>
           </select>
         <br/><br/>
-        <button type="submit" class="btn btn-primary" (click)="assignCampus(teacherId, campusId)">Assign</button>
+        <button type="submit" class="btn btn-primary" (click)="assignCampusTeacher(teacherId, campusId1)">Assign</button>
       </div>
     </div>
 
@@ -116,23 +116,23 @@
       <br/><br/><br/>
       <h2>Assign Staff to Campus</h2>
       <div class="text-center">
-        <label>Select Teacher: </label>
-        <select [(ngModel)]="teacherId" id="teacher">
-            <option *ngFor="let Teacher of getTeachers" [value]="Teacher.id">{{Teacher.User.firstName}} {{Teacher.User.lastName}}</option>
+        <label>Select Staff: </label>
+        <select [(ngModel)]="staffId" id="staff">
+            <option *ngFor="let Staff of getStaff" [value]="Staff.id">{{Staff.User.firstName}} {{Staff.User.lastName}}</option>
           </select>
         <br/><br/>
         <label>Select Campus: </label>
-        <select [(ngModel)]="campusId" id="campus">
+        <select [(ngModel)]="campusId2" id="campus">
             <option *ngFor="let Campus of getCampuses" [value]="Campus.id">{{Campus.name}}</option>
           </select>
         <br/><br/>
-        <button type="submit" class="btn btn-primary" (click)="assignCampus(teacherId, campusId)">Assign</button>
+        <button type="submit" class="btn btn-primary" (click)="assignCampusStaff(staffId, campusId2)">Assign</button>
       </div>
     </div>
 
     <div class="col-sm-5">
       <br/><br/><br/>
-      <h2>All Teachers</h2>
+      <h2>All Staff</h2>
       <div id="tableWrapper">
         <table class="table table-striped">
           <thead>
@@ -144,11 +144,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let Teacher of getTeachers">
-              <td>{{Teacher.User.firstName}}</td>
-              <td>{{Teacher.User.lastName}}</td>
-              <td>{{Teacher.User.gender}}</td>
-              <td *ngFor="let TC of Teacher.Campuses" style="display: block;">{{TC.name}}</td>
+            <tr *ngFor="let Staff of getStaff">
+              <td>{{Staff.User.firstName}}</td>
+              <td>{{Staff.User.lastName}}</td>
+              <td>{{Staff.User.gender}}</td>
+              <td *ngFor="let SC of Staff.Campuses" style="display: block;">{{SC.name}}</td>
             </tr>
           </tbody>
         </table>

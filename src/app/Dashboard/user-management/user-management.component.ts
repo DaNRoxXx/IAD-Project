@@ -22,8 +22,6 @@ export class UserManagementComponent implements OnInit {
     let DropdownList = (document.getElementById("roles")) as HTMLSelectElement;
     let SelectedIndex = DropdownList.selectedIndex;
 
-    console.log(SelectedIndex);
-
     if (fName.value == "" && lName.value == "" && gender.value == "" && dob.value == "") {
       self.response = "All fields are required.";
       document.getElementById('response').className = "alert alert-danger";
