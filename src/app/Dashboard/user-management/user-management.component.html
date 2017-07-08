@@ -69,9 +69,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let data of getData">
-              <td *ngIf="data.id !== editRow" id="test" (click)="toggle(data.id)">{{data.firstName}}</td>
+              <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.firstName}}</td>
               <td *ngIf="data.id === editRow">
-                <input class="update" (keyup.enter)="editUser(data)" id="test" type="text" [(ngModel)]="data.firstName" />
+                <input class="update" (keyup.enter)="editUser(data)" type="text" [(ngModel)]="data.firstName" />
               </td>
               <td *ngIf="data.id !== editRow" (click)="toggle(data.id)">{{data.lastName}}</td>
               <td *ngIf="data.id === editRow">

@@ -14,7 +14,7 @@ export class CampusManagementComponent implements OnInit {
   response: String;
   getCampuses: any[];
   getTeachers: any[];
-  getStaff: any[];
+  getStaffs: any[];
   editRow: any;
 
   constructor(private router: Router, private http: Http) { }
@@ -57,11 +57,11 @@ export class CampusManagementComponent implements OnInit {
       })
   }
 
-  showStaff() {
+  showStaffs() {
     let self = this;
     this.http.get("http://localhost:3000/staffs/get", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
-        self.getStaff = res.json();
+        self.getStaffs = res.json();
         //console.log(self.getTeachers[0].Campuses);
       })
   }
@@ -82,7 +82,7 @@ export class CampusManagementComponent implements OnInit {
     //console.log(Campus);
     this.http.post("http://localhost:3000/staffs/assign", { StaffId: Staff, CampusId: Campus },
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
-        self.showStaff();
+        self.showStaffs();
       })
   }
 
@@ -150,7 +150,7 @@ export class CampusManagementComponent implements OnInit {
   ngOnInit() {
     this.showCampuses();
     this.showTeachers();
-    this.showStaff();
+    this.showStaffs();
   }
 
 }

@@ -13,6 +13,8 @@ export class ClassManagementComponent implements OnInit {
 
   response: String;
   getCampuses: any[];
+  getClasses: any[];
+  editRow: any;
 
   constructor(private router: Router, private http: Http) { }
 
@@ -23,12 +25,25 @@ export class ClassManagementComponent implements OnInit {
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         if (res.status === 201) {
           document.getElementById('response').className = "alert alert-success";
-          self.response = "Campus successfully added.";
-          //self.showCampuses();
+          self.response = "Class successfully added.";
+          setTimeout(function () {
+            self.showClasses();
+          }, 500);
+          //self.showClasses();
         }
       })
+
     clName.value = "";
     clFee.value = "";
+  }
+
+  showClasses() {
+    let self = this;
+    this.http.get("http://localhost:3000/classes/get", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getClasses = res.json();
+        //console.log(self.getClasses);
+      })
   }
 
   showCampuses() {
@@ -38,6 +53,18 @@ export class ClassManagementComponent implements OnInit {
         self.getCampuses = res.json();
         //console.log(self.getCampuses);
       })
+  }
+
+  editClass(Class: any) {
+    let self = this;
+    self.editRow = 0;
+    this.http.put("http://localhost:3000/classes/edit", { id: Class.id, name: Class.name, fee: Class.fee },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+      })
+  }
+
+  toggle(val) {
+    this.editRow = val;
   }
 
   logOut() {
@@ -91,6 +118,7 @@ export class ClassManagementComponent implements OnInit {
 
   ngOnInit() {
     this.showCampuses();
+    this.showClasses();
   }
 
 }

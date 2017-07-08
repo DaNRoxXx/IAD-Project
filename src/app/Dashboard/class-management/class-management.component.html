@@ -47,5 +47,33 @@
       </form>
     </div>
 
+    <div class="col-sm-5">
+      <h2>All Classes</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>Class Fee</th>
+              <th>Class Campus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Class of getClasses">
+              <td *ngIf="Class.id !== editRow" (click)="toggle(Class.id)">{{Class.name}}</td>
+              <td *ngIf="Class.id === editRow">
+                <input class="update" (keyup.enter)="editClass(Class)" id="test" type="text" [(ngModel)]="Class.name" />
+              </td>
+              <td *ngIf="Class.id !== editRow" (click)="toggle(Class.id)">{{Class.fee}}</td>
+              <td *ngIf="Class.id === editRow">
+                <input class="update" (keyup.enter)="editClass(Class)" type="text" [(ngModel)]="Class.fee" />
+              </td>
+              <td>{{Class.Campus.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>

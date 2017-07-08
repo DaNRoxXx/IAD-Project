@@ -78,3 +78,19 @@ label {
 #response {
   text-align: center;
 }
+
+table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+table th,
+table td {
+  overflow: hidden;
+}
+
+#tableWrapper {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 390px;
+}

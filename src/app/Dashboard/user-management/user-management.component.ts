@@ -38,7 +38,9 @@ export class UserManagementComponent implements OnInit {
               if (res.status === 201) {
                 document.getElementById('response').className = "alert alert-success";
                 self.response = "Teacher successfully added.";
-                self.showUsers();
+                setTimeout(function () {
+                  self.showUsers();
+                }, 500);
               }
             })
           break;
@@ -48,7 +50,9 @@ export class UserManagementComponent implements OnInit {
               if (res.status === 201) {
                 document.getElementById('response').className = "alert alert-success";
                 self.response = "Student successfully added.";
-                self.showUsers();
+                setTimeout(function () {
+                  self.showUsers();
+                }, 500);
               }
             })
           break;
@@ -58,7 +62,9 @@ export class UserManagementComponent implements OnInit {
               if (res.status === 201) {
                 document.getElementById('response').className = "alert alert-success";
                 self.response = "Staff successfully added.";
-                self.showUsers();
+                setTimeout(function () {
+                  self.showUsers();
+                }, 500);
               }
             })
           break;

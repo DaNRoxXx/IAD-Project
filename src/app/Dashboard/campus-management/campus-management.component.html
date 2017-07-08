@@ -53,9 +53,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let Campus of getCampuses">
-              <td *ngIf="Campus.id !== editRow" id="test" (click)="toggle(Campus.id)">{{Campus.name}}</td>
+              <td *ngIf="Campus.id !== editRow" (click)="toggle(Campus.id)">{{Campus.name}}</td>
               <td *ngIf="Campus.id === editRow">
-                <input class="update" (keyup.enter)="editCampus(Campus)" id="test" type="text" [(ngModel)]="Campus.name" />
+                <input class="update" (keyup.enter)="editCampus(Campus)" type="text" [(ngModel)]="Campus.name" />
               </td>
               <td *ngIf="Campus.id !== editRow" (click)="toggle(Campus.id)">{{Campus.address}}</td>
               <td *ngIf="Campus.id === editRow">
@@ -118,7 +118,7 @@
       <div class="text-center">
         <label>Select Staff: </label>
         <select [(ngModel)]="staffId" id="staff">
-          <option *ngFor="let Staff of getStaff" [value]="Staff.id">{{Staff.User.firstName}} {{Staff.User.lastName}}</option>
+          <option *ngFor="let Staff of getStaffs" [value]="Staff.id">{{Staff.User.firstName}} {{Staff.User.lastName}}</option>
         </select>
         <br/><br/>
         <label>Select Campus: </label>
@@ -132,7 +132,7 @@
 
     <div class="col-sm-5">
       <br/><br/><br/>
-      <h2>All Staff</h2>
+      <h2>All Staffs</h2>
       <div id="tableWrapper">
         <table class="table table-striped">
           <thead>
@@ -144,7 +144,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let Staff of getStaff">
+            <tr *ngFor="let Staff of getStaffs">
               <td>{{Staff.User.firstName}}</td>
               <td>{{Staff.User.lastName}}</td>
               <td>{{Staff.User.gender}}</td>
