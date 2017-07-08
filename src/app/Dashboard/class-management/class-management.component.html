@@ -75,5 +75,45 @@
       </div>
     </div>
 
+    <div class="col-sm-4">
+      <h2>Assign Sections to Classes</h2>
+      <form class="form">
+        <label>Section Name: </label>
+        <input type="text" name="sName" placeholder="Section Name" #sName/>
+        <br/><br/>
+        <label>Select Class: </label>
+        <select #classId id="class">
+          <option disabled hidden>-- select --</option>
+          <option *ngFor="let Class of getClasses" [value]="Class.id">{{Class.name}}</option>
+        </select>
+        <br/><br/>
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary" (click)="addSection(sName, classId)">Add Section</button>
+        </div>
+        <br/>
+        <div id="response_2">{{ response_2 }}</div>
+      </form>
+    </div>
+
+    <div class="col-sm-5">
+      <h2>All Sections</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>Sections</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Section of getSections">
+              <td>{{Section.name}}</td>
+              <td *ngFor="let SC of Section.Sections" style="display: block;">{{SC.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
