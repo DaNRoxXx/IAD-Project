@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { SigninService } from "../../Services/signin.service";
+import { Http, Headers } from "@angular/http";
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-class-management',
@@ -9,7 +11,34 @@ import { SigninService } from "../../Services/signin.service";
 })
 export class ClassManagementComponent implements OnInit {
 
-  constructor(private router: Router, private sigin: SigninService) { }
+  response: String;
+  getCampuses: any[];
+
+  constructor(private router: Router, private http: Http) { }
+
+  addClass(clName: HTMLInputElement, clFee: HTMLInputElement, Campus: any): void {
+    let self = this;
+    //console.log(Campus.value);
+    this.http.post("http://localhost:3000/campuses/class", { name: clName.value, fee: clFee.value, campid: Campus.value },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        if (res.status === 201) {
+          document.getElementById('response').className = "alert alert-success";
+          self.response = "Campus successfully added.";
+          //self.showCampuses();
+        }
+      })
+    clName.value = "";
+    clFee.value = "";
+  }
+
+  showCampuses() {
+    let self = this;
+    this.http.get("http://localhost:3000/campuses/getall", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getCampuses = res.json();
+        //console.log(self.getCampuses);
+      })
+  }
 
   logOut() {
     SigninService.session.currentUser = null;
@@ -61,6 +90,7 @@ export class ClassManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showCampuses();
   }
 
 }

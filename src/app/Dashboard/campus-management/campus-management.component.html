@@ -79,7 +79,7 @@
         <label>Select Campus: </label>
         <select [(ngModel)]="campusId1" id="campus">
             <option *ngFor="let Campus of getCampuses" [value]="Campus.id">{{Campus.name}}</option>
-          </select>
+        </select>
         <br/><br/>
         <button type="submit" class="btn btn-primary" (click)="assignCampusTeacher(teacherId, campusId1)">Assign</button>
       </div>
@@ -118,13 +118,13 @@
       <div class="text-center">
         <label>Select Staff: </label>
         <select [(ngModel)]="staffId" id="staff">
-            <option *ngFor="let Staff of getStaff" [value]="Staff.id">{{Staff.User.firstName}} {{Staff.User.lastName}}</option>
-          </select>
+          <option *ngFor="let Staff of getStaff" [value]="Staff.id">{{Staff.User.firstName}} {{Staff.User.lastName}}</option>
+        </select>
         <br/><br/>
         <label>Select Campus: </label>
         <select [(ngModel)]="campusId2" id="campus">
-            <option *ngFor="let Campus of getCampuses" [value]="Campus.id">{{Campus.name}}</option>
-          </select>
+          <option *ngFor="let Campus of getCampuses" [value]="Campus.id">{{Campus.name}}</option>
+        </select>
         <br/><br/>
         <button type="submit" class="btn btn-primary" (click)="assignCampusStaff(staffId, campusId2)">Assign</button>
       </div>

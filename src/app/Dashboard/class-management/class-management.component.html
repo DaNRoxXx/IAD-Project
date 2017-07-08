@@ -1,4 +1,4 @@
-<div >
+<div>
   <h3 (click)="dashboard()">Dashboard<br />
     <small>The City School</small>
   </h3>
@@ -19,9 +19,32 @@
           <li><a href="javascript:;" (click)="account()">Account Management</a></li>
           <li><a href="javascript:;" (click)="report()">Reporting</a></li>
           <li class="nav-divider"></li>
-          <li><a href="javascript:;" (click)="logOut()" ><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
+          <li><a href="javascript:;" (click)="logOut()"><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
         </ul>
       </nav>
+    </div>
+
+    <div class="col-sm-4">
+      <h2>Add Class</h2>
+      <form class="form">
+        <label>Class Name: </label>
+        <input type="text" name="clName" placeholder="Class Name" #clName/>
+        <br/><br/>
+        <label>Class Fees: </label>
+        <input type="text" name="clFee" placeholder="Class Fees" #clFee/>
+        <br/><br/>
+        <label>Select Campus: </label>
+        <select #campusId id="campus">
+          <option disabled hidden>-- select --</option>
+          <option *ngFor="let Campus of getCampuses" [value]="Campus.id">{{Campus.name}}</option>
+        </select>
+        <br/><br/>
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary" (click)="addClass(clName, clFee, campusId)">Add Class</button>
+        </div>
+        <br/>
+        <div id="response">{{ response }}</div>
+      </form>
     </div>
 
   </div>

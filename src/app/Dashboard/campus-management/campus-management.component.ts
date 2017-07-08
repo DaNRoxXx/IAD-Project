@@ -14,7 +14,6 @@ export class CampusManagementComponent implements OnInit {
   response: String;
   getCampuses: any[];
   getTeachers: any[];
-  getTeachersCampus: any[];
   getStaff: any[];
   editRow: any;
 
@@ -22,16 +21,22 @@ export class CampusManagementComponent implements OnInit {
 
   addCampus(cName: HTMLInputElement, cAddress: HTMLInputElement): void {
     let self = this;
-    this.http.post("http://localhost:3000/campuses", { name: cName.value, address: cAddress.value },
-    new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
-        if (res.status === 201) {
-          document.getElementById('response').className = "alert alert-success";
-          self.response = "Campus successfully added.";
-          self.showCampuses();
-        }
-      })
-    cName.value = "";
-    cAddress.value = "";
+    if (cName.value == "" || cAddress.value == "") {
+      self.response = "All fields are required.";
+      document.getElementById('response').className = "alert alert-danger";
+    }
+    else {
+      this.http.post("http://localhost:3000/campuses", { name: cName.value, address: cAddress.value },
+        new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+          if (res.status === 201) {
+            document.getElementById('response').className = "alert alert-success";
+            self.response = "Campus successfully added.";
+            self.showCampuses();
+          }
+        })
+      cName.value = "";
+      cAddress.value = "";
+    }
   }
 
   showCampuses() {

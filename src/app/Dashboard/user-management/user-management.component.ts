@@ -22,7 +22,7 @@ export class UserManagementComponent implements OnInit {
     let DropdownList = (document.getElementById("roles")) as HTMLSelectElement;
     let SelectedIndex = DropdownList.selectedIndex;
 
-    if (fName.value == "" && lName.value == "" && gender.value == "" && dob.value == "") {
+    if (fName.value == "" || lName.value == "" || gender.value == "" || dob.value == "") {
       self.response = "All fields are required.";
       document.getElementById('response').className = "alert alert-danger";
     }
