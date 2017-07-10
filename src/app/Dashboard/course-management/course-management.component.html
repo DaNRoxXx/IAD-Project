@@ -1,4 +1,4 @@
-<div >
+<div>
   <h3 (click)="dashboard()">Dashboard<br />
     <small>The City School</small>
   </h3>
@@ -19,9 +19,93 @@
           <li><a href="javascript:;" (click)="account()">Account Management</a></li>
           <li><a href="javascript:;" (click)="report()">Reporting</a></li>
           <li class="nav-divider"></li>
-          <li><a href="javascript:;" (click)="logOut()" ><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
+          <li><a href="javascript:;" (click)="logOut()"><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
         </ul>
       </nav>
+    </div>
+
+    <div class="col-sm-4">
+      <h2>Add Course</h2>
+      <form class="form">
+        <label>Course Name: </label>
+        <input type="text" name="coName" placeholder="Class Name" #coName/>
+        <br/><br/>
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary" (click)="addCourse(coName)">Add Course</button>
+        </div>
+        <br/>
+        <div id="response">{{ response }}</div>
+      </form>
+    </div>
+
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-3">
+      <h2>All Courses</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Course Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Course of getCourses">
+              <td *ngIf="Course.id !== editRow" (click)="toggle(Course.id)">{{Course.name}}</td>
+              <td *ngIf="Course.id === editRow">
+                <input class="update" (keyup.enter)="editCourse(Course)" type="text" [(ngModel)]="Course.name" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-4">
+      <br/><br/><br/>
+      <h2>Assign Courses to Class</h2>
+      <form class="form">
+        <label>Select Course: </label>
+        <select #courseId id="class">
+          <option disabled hidden>-- select --</option>
+          <option *ngFor="let Course of getCourses" [value]="Course.id">{{Course.name}}</option>
+        </select>
+        <br/><br/>
+        <label>Select Class: </label>
+        <select #classId id="class">
+          <option disabled hidden>-- select --</option>
+          <option *ngFor="let Class of getClasses" [value]="Class.id">{{Class.name}}</option>
+        </select>
+        <br/><br/>
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary" (click)="assignClassCourse(courseId, classId)">Add Course</button>
+        </div>
+        <br/>
+        <div id="response2">{{ response2 }}</div>
+      </form>
+    </div>
+
+    <div class="col-sm-5">
+      <br/><br/><br/>
+      <h2>Assigned Courses</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>Course Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Course of getCourses">
+              <td>{{Course.name}}</td>
+              <td *ngFor="let CC of Course.Classes" style="display: block;">{{CC.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>

@@ -12,6 +12,8 @@ import 'rxjs/add/operator/toPromise';
 export class CampusManagementComponent implements OnInit {
 
   response: String;
+  response2: String;
+  response3: String;
   getCampuses: any[];
   getTeachers: any[];
   getStaffs: any[];
@@ -62,7 +64,7 @@ export class CampusManagementComponent implements OnInit {
     this.http.get("http://localhost:3000/staffs/get", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
         self.getStaffs = res.json();
-        //console.log(self.getTeachers[0].Campuses);
+        //console.log(self.getStaffs[0].User);
       })
   }
 
@@ -74,6 +76,8 @@ export class CampusManagementComponent implements OnInit {
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         self.showTeachers();
       })
+    document.getElementById('response2').className = "alert alert-success";
+    self.response2 = "Teacher successfully assigned.";
   }
 
   assignCampusStaff(Staff: any, Campus: any) {
@@ -84,6 +88,8 @@ export class CampusManagementComponent implements OnInit {
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         self.showStaffs();
       })
+    document.getElementById('response3').className = "alert alert-success";
+    self.response3 = "Staff ssuccessfully assigned..";
   }
 
   editCampus(data: any) {

@@ -17,7 +17,7 @@ export class UserManagementComponent implements OnInit {
   bodyLength: Number;
   editRow: any;
 
-  addUser(fName: HTMLInputElement, lName: HTMLInputElement, gender: HTMLInputElement, dob: HTMLInputElement): void {
+  addUser(fName: HTMLInputElement, lName: HTMLInputElement, gender: HTMLInputElement, dob: HTMLInputElement, admin: boolean, username: HTMLInputElement, password: HTMLInputElement): void {
     let self = this;
     let DropdownList = (document.getElementById("roles")) as HTMLSelectElement;
     let SelectedIndex = DropdownList.selectedIndex;
@@ -57,9 +57,13 @@ export class UserManagementComponent implements OnInit {
             })
           break;
         case 3:
-          this.http.post("http://localhost:3000/staffs", { firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value },
+          this.http.post("http://localhost:3000/staffs", {
+            firstName: fName.value, lastName: lName.value, gender: gender.value, dob: dob.value,
+            administrator: admin, username: username.value, password: password.value
+          },
             new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
               if (res.status === 201) {
+                document.getElementById('hidden_div').style.display = "none";
                 document.getElementById('response').className = "alert alert-success";
                 self.response = "Staff successfully added.";
                 setTimeout(function () {
@@ -73,17 +77,16 @@ export class UserManagementComponent implements OnInit {
           self.response = "ERROR!";
           break;
       }
-      self.showUsers();
+      if (SelectedIndex != 0) {
+        fName.value = "";
+        lName.value = "";
+        gender.value = "";
+        dob.value = "";
+        username.value = "";
+        password.value = "";
+        DropdownList.selectedIndex = 0;
+      }
     }
-    if (SelectedIndex != 0) {
-      fName.value = "";
-      lName.value = "";
-      gender.value = "";
-      dob.value = "";
-      DropdownList.selectedIndex = 0;
-    }
-    //alert("Successfully Added!");
-    //this.router.navigate([""]);
   }
 
   showUsers() {
@@ -108,6 +111,22 @@ export class UserManagementComponent implements OnInit {
 
   toggle(val) {
     this.editRow = val;
+  }
+
+  onChange(choice) {
+    if (choice == "staff") {
+      document.getElementById('hidden_div').style.display = "block";
+    } else {
+      document.getElementById('hidden_div').style.display = "none";
+    }
+  }
+
+  showDiv(select) {
+    if (select.value == 1) {
+      document.getElementById('hidden_div').style.display = "block";
+    } else {
+      document.getElementById('hidden_div').style.display = "none";
+    }
   }
 
   logOut() {

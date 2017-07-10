@@ -103,3 +103,7 @@ table td {
   overflow-y: scroll;
   height: 450px;
 }
+
+#check {
+  margin-left: 10px;
+}

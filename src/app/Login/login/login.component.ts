@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   user: User;
   response: string;
 
-  sign(email: HTMLInputElement, userPassword: HTMLInputElement): void {
-    this.user = { username: email.value, password: userPassword.value };
+  sign(email: HTMLInputElement, password: HTMLInputElement): void {
+    /*this.user = { username: email.value, password: userPassword.value };
      if (this.signin.checkUsername(this.user) == true) {
        SigninService.session.currentUser = email.value;
        this.router.navigate(["dashboard"]);
@@ -28,12 +28,19 @@ export class LoginComponent implements OnInit {
      else {
        document.getElementById('response').className = "alert alert-danger";
        this.response = "Invalid Username or Password.";
-     }
-    //this.http.get("http://localhost:3000/signup/login", new Headers({ 'Content-type': 'application/json' })).map(response => response.json());
-    /*this.http.post("http://localhost:3000/signup/login", { email: email.value, password: userPassword.value }, new Headers({ 'Content-type': 'application/json' })).toPromise()
-      .then(function (res) {
-        console.log(res);
-      })*/
+     }*/
+    let self = this;
+    this.http.post("http://localhost:3000/staffs/check", { username: email.value, password: password.value },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        //self.router.navigate(["dashboard"]);
+        if (res.status === 200) {
+          self.router.navigate(["dashboard"]);
+        }
+        else if (res.status === 203) {
+          document.getElementById('response').className = "alert alert-danger";
+          self.response = "Invalid Username or Password.";
+        }
+      })
   }
 
   signup(): void {
@@ -41,9 +48,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (SigninService.session.currentUser != null) {
+    /*if (SigninService.session.currentUser != null) {
       this.router.navigate(["dashboard"]);
-    }
+    }*/
   }
 
 }

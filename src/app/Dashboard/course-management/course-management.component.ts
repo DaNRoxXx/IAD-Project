@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SigninService } from "../../Services/signin.service";
 import { Router } from "@angular/router";
+import { Http, Headers } from "@angular/http";
 
 @Component({
   selector: 'app-course-management',
@@ -9,7 +10,76 @@ import { Router } from "@angular/router";
 })
 export class CourseManagementComponent implements OnInit {
 
-  constructor(private router: Router, private sigin: SigninService) { }
+  response: any;
+  response2: any;
+  editRow: any;
+  getClasses: any[];
+  getCourses: any[];
+
+  constructor(private router: Router, private http: Http) { }
+
+  addCourse(coName: HTMLInputElement) {
+    let self = this;
+    this.http.post("http://localhost:3000/courses", { name: coName.value },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        if (res.status === 201) {
+          document.getElementById('response').className = "alert alert-success";
+          self.response = "Course successfully added.";
+          setTimeout(function () {
+            self.showCourses();
+          }, 500);
+        }
+      })
+  }
+
+  assignClassCourse(courseId: any, classId: any) {
+    let self = this;
+    let DropdownList = (document.getElementById("class")) as HTMLSelectElement;
+    let SelectedIndex = DropdownList.selectedIndex;
+    this.http.post("http://localhost:3000/classes/courses", { courseId: courseId.value, classId: classId.value },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        if (res.status === 201) {
+          document.getElementById('response2').className = "alert alert-success";
+          self.response2 = "Course successfully assigned.";
+          setTimeout(function () {
+            self.showCourses();
+          }, 500);
+        }
+      })
+    if (SelectedIndex != 0) {
+      DropdownList.selectedIndex = 0;
+    }
+  }
+
+  showCourses() {
+    let self = this;
+    this.http.get("http://localhost:3000/courses/get", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getCourses = res.json();
+        //console.log(self.getClasses);
+      })
+  }
+
+  showClasses() {
+    let self = this;
+    this.http.get("http://localhost:3000/classes/get", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getClasses = res.json();
+        //console.log(self.getClasses);
+      })
+  }
+
+  editCourse(Course: any) {
+    let self = this;
+    self.editRow = 0;
+    this.http.put("http://localhost:3000/courses/edit", { id: Course.id, name: Course.name },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+      })
+  }
+
+  toggle(val) {
+    this.editRow = val;
+  }
 
   logOut() {
     SigninService.session.currentUser = null;
@@ -61,6 +131,8 @@ export class CourseManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showClasses();
+    this.showCourses();
   }
 
 }

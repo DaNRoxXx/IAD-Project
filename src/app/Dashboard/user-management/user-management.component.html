@@ -40,15 +40,26 @@
         <input type="text" id="dob" name="dob" placeholder="Date of birth" #dob/>
         <br/><br/>
         <label>Role: </label>
-        <select id="roles">
+        <select (change)="onChange($event.target.value)" id="roles">
           <option disabled hidden>-- select --</option>
           <option value="teacher">Teacher</option>
           <option value="student">Student</option>
           <option value="staff">Staff</option>
         </select>
+        <div id="hidden_div" style="display:none;">
+          <br/><br/>
+          <label>Administrator: </label>
+          <input type="checkbox" id="check"/>
+          <br/><br/>
+          <label>Username: </label>
+          <input type="text" id="username" name="username" placeholder="Username" #username/>
+          <br/><br/>
+          <label>Password: </label>
+          <input type="password" id="password" name="password" placeholder="Password" #password/>
+        </div>
         <br/><br/>
         <div class="text-center">
-          <button type="submit" class="btn btn-lg btn-primary" name="addUser" (click)="addUser(fName, lName, gender, dob)">Add User</button>
+          <button type="submit" class="btn btn-lg btn-primary" name="addUser" (click)="addUser(fName, lName, gender, dob, true, username, password)">Add User</button>
         </div>
         <br/>
         <div id="response">{{ response }}</div>

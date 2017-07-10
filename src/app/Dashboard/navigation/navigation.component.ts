@@ -64,12 +64,12 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (SigninService.session.currentUser == null) {
+    /*if (SigninService.session.currentUser == null) {
       this.router.navigate([""]);
     }
     else {
       this.username = this.sigin.getUsername();
-    }
+    }*/
   }
 
 }
