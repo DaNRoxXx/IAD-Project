@@ -52,7 +52,7 @@ export class CampusManagementComponent implements OnInit {
 
   showTeachers() {
     let self = this;
-    this.http.get("http://localhost:3000/teachers/get", new Headers({ 'Content-type': 'application/json' }))
+    this.http.get("http://localhost:3000/teachers/getall", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
         self.getTeachers = res.json();
         //console.log(self.getTeachers[0].Campuses);
@@ -89,7 +89,7 @@ export class CampusManagementComponent implements OnInit {
         self.showStaffs();
       })
     document.getElementById('response3').className = "alert alert-success";
-    self.response3 = "Staff ssuccessfully assigned..";
+    self.response3 = "Staff successfully assigned.";
   }
 
   editCampus(data: any) {

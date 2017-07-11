@@ -68,7 +68,7 @@
       <h2>Assign Courses to Class</h2>
       <form class="form">
         <label>Select Course: </label>
-        <select #courseId id="class">
+        <select #courseId id="course">
           <option disabled hidden>-- select --</option>
           <option *ngFor="let Course of getCourses" [value]="Course.id">{{Course.name}}</option>
         </select>
@@ -102,6 +102,59 @@
             <tr *ngFor="let Course of getCourses">
               <td>{{Course.name}}</td>
               <td *ngFor="let CC of Course.Classes" style="display: block;">{{CC.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-2"></div>
+
+    <div class="col-sm-4">
+      <br/><br/><br/>
+      <h2>Assign Teachers to Courses & Sections</h2>
+      <div class="text-center">
+        <label>Select Teacher: </label>
+        <select [(ngModel)]="teacherObj" id="teacher">
+          <option *ngFor="let Teacher of getTeachers" [ngValue]="Teacher">{{Teacher.User.firstName}} {{Teacher.User.lastName}}</option>
+        </select>
+        <br/><br/>
+        <label>Select Course: </label>
+        <select #courseId2 id="course">
+          <option disabled hidden></option>
+          <option *ngFor="let Course of getCourses" [value]="Course.id">{{Course.name}}</option>
+        </select>
+        <br/><br/>
+        <label>Select Class & Section: </label>
+        <select [(ngModel)]="sectionObj" id="section">
+          <option *ngFor="let Section of getSections" [ngValue]="Section">{{Section.Class.name}} - {{Section.name}}</option>
+        </select>
+        <br/><br/>
+        <button type="submit" class="btn btn-primary" (click)="assignT2CS(teacherObj, courseId2, sectionObj)">Assign</button>
+      </div>
+      <br/>
+      <div id="response3">{{ response3 }}</div>
+    </div>
+
+    <div class="col-sm-5">
+      <br/><br/><br/>
+      <h2>Assigned Teachers</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Teacher Name</th>
+              <th>Course Name</th>
+              <th>Class Name</th>
+              <th>Section Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Teach of getTeachings">
+              <td>{{Teach.firstName}} {{Teach.lastName}}</td>
+              <td>{{Teach.Course.name}}</td>
+              <td>{{Teach.className}}</td>
+              <td>{{Teach.Section.name}}</td>
             </tr>
           </tbody>
         </table>

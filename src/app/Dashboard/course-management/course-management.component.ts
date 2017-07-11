@@ -12,9 +12,13 @@ export class CourseManagementComponent implements OnInit {
 
   response: any;
   response2: any;
+  response3: any;
   editRow: any;
   getClasses: any[];
   getCourses: any[];
+  getTeachers: any[];
+  getSections: any[];
+  getTeachings: any[];
 
   constructor(private router: Router, private http: Http) { }
 
@@ -25,6 +29,7 @@ export class CourseManagementComponent implements OnInit {
         if (res.status === 201) {
           document.getElementById('response').className = "alert alert-success";
           self.response = "Course successfully added.";
+          coName.value = "";
           setTimeout(function () {
             self.showCourses();
           }, 500);
@@ -35,7 +40,9 @@ export class CourseManagementComponent implements OnInit {
   assignClassCourse(courseId: any, classId: any) {
     let self = this;
     let DropdownList = (document.getElementById("class")) as HTMLSelectElement;
+    let DropdownList2 = (document.getElementById("course")) as HTMLSelectElement;
     let SelectedIndex = DropdownList.selectedIndex;
+
     this.http.post("http://localhost:3000/classes/courses", { courseId: courseId.value, classId: classId.value },
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         if (res.status === 201) {
@@ -48,6 +55,7 @@ export class CourseManagementComponent implements OnInit {
       })
     if (SelectedIndex != 0) {
       DropdownList.selectedIndex = 0;
+      DropdownList2.selectedIndex = 0;
     }
   }
 
@@ -56,7 +64,7 @@ export class CourseManagementComponent implements OnInit {
     this.http.get("http://localhost:3000/courses/get", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
         self.getCourses = res.json();
-        //console.log(self.getClasses);
+        //console.log(self.getCourses);
       })
   }
 
@@ -67,6 +75,51 @@ export class CourseManagementComponent implements OnInit {
         self.getClasses = res.json();
         //console.log(self.getClasses);
       })
+  }
+
+  showTeachers() {
+    let self = this;
+    this.http.get("http://localhost:3000/teachers/getall", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getTeachers = res.json();
+        //console.log(self.getTeachers[0].Campuses);
+      })
+  }
+
+  showSections() {
+    let self = this;
+    this.http.get("http://localhost:3000/sections/getall", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getSections = res.json();
+        //console.log(self.getSections);
+      })
+  }
+
+  showTeachings() {
+    let self = this;
+    this.http.get("http://localhost:3000/teachers/getallcourses", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getTeachings = res.json();
+        //console.log(self.getTeachings);
+      })
+  }
+
+  assignT2CS(teacher: any, courseId: any, sectionObj: any) {
+    let self = this;
+    //console.log(teacher.id);
+    //console.log(teacher.User.firstName);
+    //console.log(courseId.value);
+    //console.log(sectionObj.Class.name);
+    this.http.post("http://localhost:3000/teachers/addcourse", {
+      teacherId: teacher.id, firstName: teacher.User.firstName, lastName: teacher.User.lastName,
+      courseId: courseId.value, className: sectionObj.Class.name, sectionId: sectionObj.id
+    }, new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+      setTimeout(function () {
+        self.showTeachings();
+      }, 500);
+    })
+    document.getElementById('response3').className = "alert alert-success";
+    self.response3 = "Course & Section successfully assigned.";
   }
 
   editCourse(Course: any) {
@@ -133,6 +186,9 @@ export class CourseManagementComponent implements OnInit {
   ngOnInit() {
     this.showClasses();
     this.showCourses();
+    this.showTeachers();
+    this.showSections();
+    this.showTeachings();
   }
 
 }
