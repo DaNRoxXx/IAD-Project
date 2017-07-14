@@ -15,7 +15,9 @@ export class ExamManagementComponent implements OnInit {
   getExams: any[];
 
   constructor(private router: Router, private sigin: SigninService, private http: Http) { }
-
+  /**
+  * This function add Exam's.
+  */
   addExam(courseId: HTMLInputElement, eName: HTMLInputElement, eDate: HTMLInputElement, eTime: HTMLInputElement) {
     let self = this;
     this.http.post("http://localhost:3000/teachings/exam/", { courseId: courseId.value, name: eName.value, date: eDate.value, time: eTime.value },
@@ -30,7 +32,9 @@ export class ExamManagementComponent implements OnInit {
         }
       })
   }
-
+  /**
+  * This function show Courses.
+  */
   showCourses() {
     let self = this;
     this.http.get("http://localhost:3000/courses/get", new Headers({ 'Content-type': 'application/json' }))
@@ -39,7 +43,9 @@ export class ExamManagementComponent implements OnInit {
         //console.log(self.getCourses);
       })
   }
-
+  /**
+  * This function show Exam's.
+  */
   showExams() {
     let self = this;
     this.http.get("http://localhost:3000/teachings/exam/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -48,7 +54,7 @@ export class ExamManagementComponent implements OnInit {
         //console.log(self.getExams);
       })
   }
-
+  
   logOut() {
     SigninService.session.currentUser = null;
     this.router.navigate([""]);

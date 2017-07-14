@@ -49,7 +49,7 @@
         <div id="hidden_div" style="display:none;">
           <br/><br/>
           <label>Administrator: </label>
-          <input type="checkbox" id="check"/>
+          <input type="checkbox" id="check" />
           <br/><br/>
           <label>Username: </label>
           <input type="text" id="username" name="username" placeholder="Username" #username/>
@@ -101,5 +101,61 @@
         </table>
       </div>
     </div>
+
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-5">
+      <br/><br/><br/>
+      <h2>All Staffs</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Campus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Staff of getStaffs">
+              <td>{{Staff.User.firstName}}</td>
+              <td>{{Staff.User.lastName}}</td>
+              <td>{{Staff.User.gender}}</td>
+              <td>{{Staff.User.dob}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-5">
+      <br/><br/><br/>
+      <h2>All Teachers</h2>
+      <div id="tableWrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Campus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Teacher of getTeachers">
+              <td>{{Teacher.User.firstName}}</td>
+              <td>{{Teacher.User.lastName}}</td>
+              <td>{{Teacher.User.gender}}</td>
+              <td>{{Teacher.User.dob}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
   </div>
 </div>

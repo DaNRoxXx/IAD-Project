@@ -20,7 +20,9 @@ export class CampusManagementComponent implements OnInit {
   editRow: any;
 
   constructor(private router: Router, private http: Http) { }
-
+  /**
+  * This function add Campuses.
+  */
   addCampus(cName: HTMLInputElement, cAddress: HTMLInputElement): void {
     let self = this;
     if (cName.value == "" || cAddress.value == "") {
@@ -40,7 +42,9 @@ export class CampusManagementComponent implements OnInit {
       cAddress.value = "";
     }
   }
-
+  /**
+  * This function show Campuses.
+  */
   showCampuses() {
     let self = this;
     this.http.get("http://localhost:3000/campuses/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -49,7 +53,9 @@ export class CampusManagementComponent implements OnInit {
         //console.log(self.getCampuses);
       })
   }
-
+  /**
+  * This function show Teacher's.
+  */
   showTeachers() {
     let self = this;
     this.http.get("http://localhost:3000/teachers/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -58,7 +64,9 @@ export class CampusManagementComponent implements OnInit {
         //console.log(self.getTeachers[0].Campuses);
       })
   }
-
+  /**
+  * This function show Staff's.
+  */
   showStaffs() {
     let self = this;
     this.http.get("http://localhost:3000/staffs/get", new Headers({ 'Content-type': 'application/json' }))
@@ -67,7 +75,9 @@ export class CampusManagementComponent implements OnInit {
         //console.log(self.getStaffs[0].User);
       })
   }
-
+  /**
+  * This function assign Teacher's to Campus.
+  */
   assignCampusTeacher(Teacher: any, Campus: any) {
     let self = this;
     //console.log(Teacher);
@@ -79,7 +89,9 @@ export class CampusManagementComponent implements OnInit {
     document.getElementById('response2').className = "alert alert-success";
     self.response2 = "Teacher successfully assigned.";
   }
-
+  /**
+  * This function assign Staff's to Campus.
+  */
   assignCampusStaff(Staff: any, Campus: any) {
     let self = this;
     //console.log(Staff);
@@ -91,7 +103,9 @@ export class CampusManagementComponent implements OnInit {
     document.getElementById('response3').className = "alert alert-success";
     self.response3 = "Staff successfully assigned.";
   }
-
+  /**
+  * This function edit Campuses.
+  */
   editCampus(data: any) {
     let self = this;
     self.editRow = 0;

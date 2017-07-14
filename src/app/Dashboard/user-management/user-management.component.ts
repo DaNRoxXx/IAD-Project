@@ -16,7 +16,11 @@ export class UserManagementComponent implements OnInit {
   getData: any[];
   bodyLength: Number;
   editRow: any;
-
+  getTeachers: any[];
+  getStaffs: any[];
+  /**
+  * This function add User's.
+  */
   addUser(fName: HTMLInputElement, lName: HTMLInputElement, gender: HTMLInputElement, dob: HTMLInputElement, admin: boolean, username: HTMLInputElement, password: HTMLInputElement): void {
     let self = this;
     let DropdownList = (document.getElementById("roles")) as HTMLSelectElement;
@@ -40,6 +44,7 @@ export class UserManagementComponent implements OnInit {
                 self.response = "Teacher successfully added.";
                 setTimeout(function () {
                   self.showUsers();
+                  self.showTeachers();
                 }, 500);
               }
             })
@@ -68,6 +73,7 @@ export class UserManagementComponent implements OnInit {
                 self.response = "Staff successfully added.";
                 setTimeout(function () {
                   self.showUsers();
+                  self.showStaffs();
                 }, 500);
               }
             })
@@ -88,7 +94,9 @@ export class UserManagementComponent implements OnInit {
       }
     }
   }
-
+  /**
+  * This function show User's.
+  */
   showUsers() {
     let self = this;
     this.http.get("http://localhost:3000/users/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -101,6 +109,26 @@ export class UserManagementComponent implements OnInit {
       })
   }
 
+  showStaffs() {
+    let self = this;
+    this.http.get("http://localhost:3000/staffs/getall", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getStaffs = res.json();
+        //console.log(self.getTeachers[0].Campuses);
+      })
+  }
+
+  showTeachers() {
+    let self = this;
+    this.http.get("http://localhost:3000/teachers/getall", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getTeachers = res.json();
+        //console.log(self.getTeachers[0].Campuses);
+      })
+  }
+  /**
+  * This function edit User's.
+  */
   editUser(data: any) {
     let self = this;
     self.editRow = 0;
@@ -180,6 +208,8 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.showUsers();
+    this.showTeachers();
+    this.showStaffs();
   }
 
 }

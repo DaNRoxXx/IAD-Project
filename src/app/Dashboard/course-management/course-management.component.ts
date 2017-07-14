@@ -21,7 +21,9 @@ export class CourseManagementComponent implements OnInit {
   getTeachings: any[];
 
   constructor(private router: Router, private http: Http) { }
-
+  /**
+  * This function add Courses.
+  */
   addCourse(coName: HTMLInputElement) {
     let self = this;
     this.http.post("http://localhost:3000/courses", { name: coName.value },
@@ -36,7 +38,9 @@ export class CourseManagementComponent implements OnInit {
         }
       })
   }
-
+  /**
+  * This function assign Courses to Class.
+  */
   assignClassCourse(courseId: any, classId: any) {
     let self = this;
     let DropdownList = (document.getElementById("class")) as HTMLSelectElement;
@@ -58,7 +62,9 @@ export class CourseManagementComponent implements OnInit {
       DropdownList2.selectedIndex = 0;
     }
   }
-
+  /**
+  * This function show Courses.
+  */
   showCourses() {
     let self = this;
     this.http.get("http://localhost:3000/courses/get", new Headers({ 'Content-type': 'application/json' }))
@@ -67,7 +73,9 @@ export class CourseManagementComponent implements OnInit {
         //console.log(self.getCourses);
       })
   }
-
+  /**
+  * This function show Classes.
+  */
   showClasses() {
     let self = this;
     this.http.get("http://localhost:3000/classes/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -76,7 +84,9 @@ export class CourseManagementComponent implements OnInit {
         //console.log(self.getClasses);
       })
   }
-
+  /**
+  * This function show Teacher's.
+  */
   showTeachers() {
     let self = this;
     this.http.get("http://localhost:3000/teachers/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -85,7 +95,9 @@ export class CourseManagementComponent implements OnInit {
         //console.log(self.getTeachers[0].Campuses);
       })
   }
-
+  /**
+  * This function show Section's.
+  */
   showSections() {
     let self = this;
     this.http.get("http://localhost:3000/sections/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -94,7 +106,9 @@ export class CourseManagementComponent implements OnInit {
         //console.log(self.getSections);
       })
   }
-
+  /**
+  * This function shows what Teacher is teaching.
+  */
   showTeachings() {
     let self = this;
     this.http.get("http://localhost:3000/teachers/getallcourses", new Headers({ 'Content-type': 'application/json' }))
@@ -103,7 +117,9 @@ export class CourseManagementComponent implements OnInit {
         //console.log(self.getTeachings);
       })
   }
-
+  /**
+  * This function assign Teacher's to Courses and Section's.
+  */
   assignT2CS(teacher: any, courseId: any, sectionObj: any) {
     let self = this;
     //console.log(teacher.id);
@@ -121,7 +137,9 @@ export class CourseManagementComponent implements OnInit {
     document.getElementById('response3').className = "alert alert-success";
     self.response3 = "Course & Section successfully assigned.";
   }
-
+  /**
+  * This function edit Courses.
+  */
   editCourse(Course: any) {
     let self = this;
     self.editRow = 0;
@@ -129,7 +147,7 @@ export class CourseManagementComponent implements OnInit {
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
       })
   }
-
+  
   toggle(val) {
     this.editRow = val;
   }

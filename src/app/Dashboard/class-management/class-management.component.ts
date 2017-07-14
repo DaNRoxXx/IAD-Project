@@ -12,14 +12,19 @@ import 'rxjs/add/operator/toPromise';
 export class ClassManagementComponent implements OnInit {
 
   response: String;
-  response_2: String;
+  response2: String;
+  response3: String;
   getCampuses: any[];
   getClasses: any[];
   getSections: any[];
+  getSections2: any[];
+  getActivities: any[];
   editRow: any;
 
   constructor(private router: Router, private http: Http) { }
-
+  /**
+  * This function add Classes.
+  */
   addClass(clName: HTMLInputElement, clFee: HTMLInputElement, Campus: any): void {
     let self = this;
     let DropdownList = (document.getElementById("campus")) as HTMLSelectElement;
@@ -42,7 +47,9 @@ export class ClassManagementComponent implements OnInit {
       DropdownList.selectedIndex = 0;
     }
   }
-
+  /**
+  * This function add Section's.
+  */
   addSection(sName: HTMLInputElement, Class: any): void {
     let self = this;
     let DropdownList = (document.getElementById("class")) as HTMLSelectElement;
@@ -52,7 +59,7 @@ export class ClassManagementComponent implements OnInit {
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         if (res.status === 201) {
           document.getElementById('response_2').className = "alert alert-success";
-          self.response_2 = "Section successfully added.";
+          self.response2 = "Section successfully added.";
           setTimeout(function () {
             self.showSections();
           }, 500);
@@ -63,7 +70,32 @@ export class ClassManagementComponent implements OnInit {
       DropdownList.selectedIndex = 0;
     }
   }
-
+  /**
+  * This function add Activities.
+  */
+  addActivity(sectionId: any, aDate: HTMLInputElement, aDes: HTMLInputElement) {
+    let self = this;
+    let DropdownList = (document.getElementById("section")) as HTMLSelectElement;
+    let SelectedIndex = DropdownList.selectedIndex;
+    this.http.post("http://localhost:3000/sections/activity/", { date: aDate.value, description: aDes.value, section: sectionId.value },
+      new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
+        if (res.status === 201) {
+          document.getElementById('response3').className = "alert alert-success";
+          self.response3 = "Activity successfully added.";
+          aDate.value = "";
+          aDes.value = "";
+          setTimeout(function () {
+            self.showActivities();
+          }, 500);
+        }
+      })
+    if (SelectedIndex != 0) {
+      DropdownList.selectedIndex = 0;
+    }
+  }
+  /**
+  * This function show Classes.
+  */
   showClasses() {
     let self = this;
     this.http.get("http://localhost:3000/classes/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -72,7 +104,9 @@ export class ClassManagementComponent implements OnInit {
         //console.log(self.getClasses);
       })
   }
-
+  /**
+  * This function show Campuses.
+  */
   showCampuses() {
     let self = this;
     this.http.get("http://localhost:3000/campuses/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -81,7 +115,9 @@ export class ClassManagementComponent implements OnInit {
         //console.log(self.getCampuses);
       })
   }
-
+  /**
+  * This function show Section's.
+  */
   showSections() {
     let self = this;
     this.http.get("http://localhost:3000/classes/sections/getall", new Headers({ 'Content-type': 'application/json' }))
@@ -89,7 +125,30 @@ export class ClassManagementComponent implements OnInit {
         self.getSections = res.json();
       })
   }
-
+  /**
+  * This function show Section's.
+  */
+  showSections2() {
+    let self = this;
+    this.http.get("http://localhost:3000/sections/getall/", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getSections2 = res.json();
+      })
+  }
+  /**
+  * This function show Activities.
+  */
+  showActivities() {
+    let self = this;
+    this.http.get("http://localhost:3000/sections/activity/getall", new Headers({ 'Content-type': 'application/json' }))
+      .toPromise().then(function (res) {
+        self.getActivities = res.json();
+        //console.log(self.getCampuses);
+      })
+  }
+  /**
+  * This function edit Classes.
+  */
   editClass(Class: any) {
     let self = this;
     self.editRow = 0;
@@ -155,6 +214,8 @@ export class ClassManagementComponent implements OnInit {
     this.showCampuses();
     this.showClasses();
     this.showSections();
+    this.showSections2();
+    this.showActivities();
   }
 
 }
