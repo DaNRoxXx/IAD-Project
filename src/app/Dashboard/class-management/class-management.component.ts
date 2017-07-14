@@ -32,6 +32,7 @@ export class ClassManagementComponent implements OnInit {
           self.response = "Class successfully added.";
           setTimeout(function () {
             self.showClasses();
+            self.showSections();
           }, 500);
         }
       })
@@ -65,7 +66,7 @@ export class ClassManagementComponent implements OnInit {
 
   showClasses() {
     let self = this;
-    this.http.get("http://localhost:3000/classes/get", new Headers({ 'Content-type': 'application/json' }))
+    this.http.get("http://localhost:3000/classes/getall", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
         self.getClasses = res.json();
         //console.log(self.getClasses);
@@ -83,7 +84,7 @@ export class ClassManagementComponent implements OnInit {
 
   showSections() {
     let self = this;
-    this.http.get("http://localhost:3000/classes/sections/get", new Headers({ 'Content-type': 'application/json' }))
+    this.http.get("http://localhost:3000/classes/sections/getall", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
         self.getSections = res.json();
       })

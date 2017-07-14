@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
        this.response = "Invalid Username or Password.";
      }*/
     let self = this;
-    this.http.post("http://localhost:3000/staffs/check", { username: email.value, password: password.value },
+    this.http.post("http://localhost:3000/staffs/login", { username: email.value, password: password.value },
       new Headers({ 'Content-type': 'application/json' })).toPromise().then(function (res) {
         //self.router.navigate(["dashboard"]);
         if (res.status === 200) {

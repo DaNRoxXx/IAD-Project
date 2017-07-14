@@ -70,7 +70,7 @@ export class CourseManagementComponent implements OnInit {
 
   showClasses() {
     let self = this;
-    this.http.get("http://localhost:3000/classes/get", new Headers({ 'Content-type': 'application/json' }))
+    this.http.get("http://localhost:3000/classes/getall", new Headers({ 'Content-type': 'application/json' }))
       .toPromise().then(function (res) {
         self.getClasses = res.json();
         //console.log(self.getClasses);
